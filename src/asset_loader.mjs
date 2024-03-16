@@ -32,15 +32,15 @@ class MyImage {
             this.img.src = this.src;
         } else if (this.canDraw) {
             try {
-                engine.context.drawImage(this.img, x, y, xs, ys);
+                engine.context2d.drawImage(this.img, x, y, xs, ys);
             } catch (e) {
                 this.canDraw = false;
                 this.drawBackup = true;
                 throw e;
             }
         } else if (this.drawBackup) {
-            engine.context.fillStyle = this.backupColor;
-            engine.context.fillRect(x, y, xs, ys);
+            engine.context2d.fillStyle = this.backupColor;
+            engine.context2d.fillRect(x, y, xs, ys);
         }
     }
     preload() {
