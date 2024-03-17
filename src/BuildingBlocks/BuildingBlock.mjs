@@ -6,7 +6,7 @@ class BuildingBlock {
     constructor(x, y, z, width, height, depth) {
         // Block visual representation
         var geometry = new THREE.BoxGeometry(width, height, depth);
-        var material = new THREE.MeshBasicMaterial({ color: 0xff00ff });
+        var material = new THREE.MeshPhongMaterial({ color: 0xff00ff });
         var cube = new THREE.Mesh(geometry, material);
         cube.position.set(x, y, z);
         engine.scene.add(cube);

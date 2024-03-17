@@ -11,10 +11,13 @@ let ballBody = null;
 function createBall(x, y, z) {
     // Ball
     const ballMaterialPhysics = new CANNON.Material(); // Create a new material
+    ballMaterialPhysics.friction = 1
     ballMaterialPhysics.restitution = 0.5; // Set the restitution coefficient to 0.5 (adjust as needed)
 
     const ballShape = new CANNON.Sphere(1); // Radius 1
     ballBody = new CANNON.Body({ mass: 10, position: new CANNON.Vec3(x, y, z), shape: ballShape, material: ballMaterialPhysics});
+    // Adds the Linear Damping to the ball.
+    ballBody.linearDamping = 0.3
     engine.cannonjs_world.addBody(ballBody);
     // Create visual representations (meshes)
     const ballGeometry = new THREE.SphereGeometry(1, 32, 32);
@@ -38,7 +41,7 @@ function createGround() {
 
     // Create visual representation of ground (in Three.js)
     const groundGeometry = new THREE.PlaneGeometry(100, 100);
-    const groundMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide });
+    const groundMaterial = new THREE.MeshPhongMaterial({ color: 0x00ff00, side: THREE.DoubleSide });
     const groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
     groundMesh.rotation.x = -Math.PI / 2; // Rotate to align with Cannon.js
     engine.scene.add(groundMesh);
@@ -66,6 +69,7 @@ function initGame() {
     createBall(10, 30, 0);
     // createGround();
     const block1 = new BuildingBlock(0, 5, 0, 20, 10, 20);
+    const block2 = new BuildingBlock(20, 0, 0, 50, 10, 20);
 
     // Set custom update function
     engine.update = (() => {
