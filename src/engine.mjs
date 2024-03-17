@@ -28,7 +28,7 @@ let engine = {
     // Three js objects
     scene: null,
     camera: null,
-    rendere: null,
+    renderer: null,
     // Cannon js
     cannonjs_world: null
 };
@@ -99,8 +99,6 @@ function initThreeJS() {
     engine.cannonjs_world.gravity.set(0, -9.82, 0); // Set gravity
     engine.cannonjs_world.broadphase = new CANNON.NaiveBroadphase(); // Use naive broadphase
     engine.cannonjs_world.solver.iterations = 10; // Set solver iterations
-
-
 }
 function initEvents() {
     // Events for touchscreen devices
@@ -139,7 +137,7 @@ function initEvents() {
 }
 // Redraw will be executed many times
 function redraw() {
-    engine.cannonjs_world.step(1 / 60);
+    engine.cannonjs_world.step(1/20);
     engine.context2d.save();
 
     // Call draw function from game.js
@@ -172,7 +170,6 @@ function default_draw3d() {
 // Init game engine
 function initEngine() {
     init2dCanvas();
-
 
     // Attach basic mouse and keyboard events
     initEvents();

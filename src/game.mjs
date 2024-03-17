@@ -3,8 +3,8 @@ import { drawImage } from "./utils.mjs";
 import * as THREE from "three.js";
 import * as CANNON from "cannon";
 import OrbitControls_ from 'three-orbit-controls';
-import { BuildingBlock } from "./BuildingBlocks/BuildingBlock.mjs";
-import { create } from "lodash";
+import { Ramp } from "./BuildingBlocks/Ramp.mjs";
+import {BuildingBlock} from "./BuildingBlocks/BuildingBlock.mjs";
 
 let ballMesh = null;
 let ballBody = null;
@@ -12,13 +12,14 @@ function createBall(x, y, z) {
     // Ball
     const ballMaterialPhysics = new CANNON.Material(); // Create a new material
     ballMaterialPhysics.restitution = 0.5; // Set the restitution coefficient to 0.5 (adjust as needed)
-
+    ballMaterialPhysics.friction = 0.2;
     const ballShape = new CANNON.Sphere(1); // Radius 1
     ballBody = new CANNON.Body({ mass: 10, position: new CANNON.Vec3(x, y, z), shape: ballShape, material: ballMaterialPhysics});
     engine.cannonjs_world.addBody(ballBody);
+
     // Create visual representations (meshes)
     const ballGeometry = new THREE.SphereGeometry(1, 32, 32);
-    const ballMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+    const ballMaterial = new THREE.MeshPhongMaterial({ color: 0xffff00 });
     ballMesh = new THREE.Mesh(ballGeometry, ballMaterial);
 
     window.ballMesh = ballMesh;
@@ -34,7 +35,6 @@ function createGround() {
     groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2); // Set rotation to align with Cannon.js
     groundBody.position.set(0, 0, 0); // Set position
     engine.cannonjs_world.addBody(groundBody);
-
 
     // Create visual representation of ground (in Three.js)
     const groundGeometry = new THREE.PlaneGeometry(100, 100);
@@ -64,9 +64,12 @@ function initGame() {
     engine.scene.add(directionalLight);
 
     createBall(10, 30, 0);
-    // createGround();
-    const block1 = new BuildingBlock(0, 5, 0, 20, 10, 20);
 
+    new BuildingBlock(0, 5, 0, 20, 10, 20);
+    new Ramp(16.5, 2.5, 0, 20, Math.PI, Math.PI/4);
+    new Ramp(40, -5, 0, 20, Math.PI/2, 0);
+    
+    new BuildingBlock(30, -10, 0, 40, 10, 20);
     // Set custom update function
     engine.update = (() => {
         x += (engine.mouseX - x) / 100;
@@ -82,7 +85,7 @@ function initGame() {
     engine.draw2d = (() => {
         engine.context2d.clearRect(0, 0, engine.canvas2d.width, engine.canvas2d.height);
         drawImage(femaleAction, x, y, 60, 80);
-        context2d.strokeRect(0, 0, canvas2d.width, canvas2d.height);
+        engine.context2d.strokeRect(0, 0, canvas2d.width, canvas2d.height);
     });
     
     engine.onmouseup = () => {
