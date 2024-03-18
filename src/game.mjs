@@ -10,7 +10,7 @@ import { firingTheBall } from "./firingTheBall.mjs";
 let ballMesh = null;
 let ballBody = null;
 
-const orbitControls = false;
+const orbitControls = true;
 
 let oldBallPosision = {x: 0, y: 0, z: 0};
 
@@ -88,11 +88,11 @@ function initGame() {
         ballMesh.position.copy(ballBody.position);
         
         // Makes the ball static when it isn't moving
-        if(time%20 == 0) {
+        if(time%50 == 0) {
             console.log(firingTheBall.power, firingTheBall.direction, firingTheBall.angle);
             let error = (ballMesh.position.x - oldBallPosision.x) + (ballMesh.position.y - oldBallPosision.y) + (ballMesh.position.z - oldBallPosision.z);
             
-            if(error < 0.025) {
+            if(error < 0.05) {
                 ballBody.type = CANNON.Body.STATIC;
             }
 
