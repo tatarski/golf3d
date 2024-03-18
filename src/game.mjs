@@ -5,16 +5,22 @@ import * as CANNON from "cannon";
 import OrbitControls_ from 'three-orbit-controls';
 import { Ramp } from "./BuildingBlocks/Ramp.mjs";
 import {BuildingBlock} from "./BuildingBlocks/BuildingBlock.mjs";
+import { firingTheBall } from "./firingTheBall.mjs";
 
 let ballMesh = null;
 let ballBody = null;
+
+const orbitControls = false;
+
+let oldBallPosision = {x: 0, y: 0, z: 0};
+
 function createBall(x, y, z) {
     // Ball
     const ballMaterialPhysics = new CANNON.Material(); // Create a new material
     ballMaterialPhysics.restitution = 0.5; // Set the restitution coefficient to 0.5 (adjust as needed)
     ballMaterialPhysics.friction = 0.2;
     const ballShape = new CANNON.Sphere(1); // Radius 1
-    ballBody = new CANNON.Body({ mass: 10, position: new CANNON.Vec3(x, y, z), shape: ballShape, material: ballMaterialPhysics});
+    ballBody = new CANNON.Body({ mass: 1, position: new CANNON.Vec3(x, y, z), shape: ballShape, material: ballMaterialPhysics});
     engine.cannonjs_world.addBody(ballBody);
 
     // Create visual representations (meshes)
@@ -28,10 +34,11 @@ function createBall(x, y, z) {
     ballMesh.position.set(x, y, z);
     engine.scene.add(ballMesh);
 }
+
 function createGround() {
     // Create ground plane
     const groundShape = new CANNON.Plane();
-    const groundBody = new CANNON.Body({ mass: 0, shape: groundShape });
+    const groundBody = new CANNON.Body({ mass: 2, shape: groundShape });
     groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2); // Set rotation to align with Cannon.js
     groundBody.position.set(0, 0, 0); // Set position
     engine.cannonjs_world.addBody(groundBody);
@@ -43,12 +50,15 @@ function createGround() {
     groundMesh.rotation.x = -Math.PI / 2; // Rotate to align with Cannon.js
     engine.scene.add(groundMesh);
 }
-function initGame() {
-    let x = canvas2d.width / 2, y = canvas2d.height / 2;
 
+let time = 0;
+
+function initGame() {
     // Orbit controls
-    const OrbitControls = new OrbitControls_(THREE);
-    const controls = new OrbitControls(engine.camera);
+    if(orbitControls) {
+        const OrbitControls = new OrbitControls_(THREE);
+        const controls = new OrbitControls(engine.camera);
+    }
 
     // Set up camera
     engine.camera.position.set(0, 20, 80);
@@ -63,7 +73,7 @@ function initGame() {
     directionalLight.lookAt(0, 0, 0);
     engine.scene.add(directionalLight);
 
-    createBall(10, 30, 0);
+    createBall(5, 15, 0);
 
     new BuildingBlock(0, 5, 0, 20, 10, 20);
     new Ramp(16.5, 2.5, 0, 20, Math.PI, Math.PI/4);
@@ -72,19 +82,31 @@ function initGame() {
     new BuildingBlock(30, -10, 0, 40, 10, 20);
     // Set custom update function
     engine.update = (() => {
-        x += (engine.mouseX - x) / 100;
-        y += (engine.mouseY - y) / 100;
-
-
+        time++;
+        
         // Update ball position
         ballMesh.position.copy(ballBody.position);
+        
+        // Makes the ball static when it isn't moving
+        if(time%20 == 0) {
+            console.log(firingTheBall.power, firingTheBall.direction, firingTheBall.angle);
+            let error = (ballMesh.position.x - oldBallPosision.x) + (ballMesh.position.y - oldBallPosision.y) + (ballMesh.position.z - oldBallPosision.z);
+            
+            if(error < 0.025) {
+                ballBody.type = CANNON.Body.STATIC;
+            }
+
+            oldBallPosision = ballMesh.position.clone();;
+        }
+
         // ballMesh.quaternion.copy(ballBody.quaternion);
     });
 
     // Set custom draw function
     engine.draw2d = (() => {
         engine.context2d.clearRect(0, 0, engine.canvas2d.width, engine.canvas2d.height);
-        drawImage(femaleAction, x, y, 60, 80);
+        
+
         engine.context2d.strokeRect(0, 0, canvas2d.width, canvas2d.height);
     });
     
@@ -96,4 +118,5 @@ function initGame() {
 let game = {
     init: initGame
 }
+
 export { game }

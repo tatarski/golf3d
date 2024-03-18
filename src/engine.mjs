@@ -100,6 +100,7 @@ function initThreeJS() {
     engine.cannonjs_world.broadphase = new CANNON.NaiveBroadphase(); // Use naive broadphase
     engine.cannonjs_world.solver.iterations = 10; // Set solver iterations
 }
+
 function initEvents() {
     // Events for touchscreen devices
     if ('ontouchstart' in window || navigator.maxTouchPoints) {
@@ -167,6 +168,7 @@ function default_draw() {
 function default_draw3d() {
 
 }
+
 // Init game engine
 function initEngine() {
     init2dCanvas();
