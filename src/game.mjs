@@ -10,7 +10,7 @@ import { firingTheBall } from "./firingTheBall.mjs";
 let ballMesh = null;
 let ballBody = null;
 
-const orbitControls = true;
+const orbitControls = false;
 
 let oldBallPosision = {x: 0, y: 0, z: 0};
 
@@ -88,12 +88,15 @@ function initGame() {
         ballMesh.position.copy(ballBody.position);
         
         // Makes the ball static when it isn't moving
-        if(time%50 == 0) {
-            console.log(firingTheBall.power, firingTheBall.direction, firingTheBall.angle);
-            let error = (ballMesh.position.x - oldBallPosision.x) + (ballMesh.position.y - oldBallPosision.y) + (ballMesh.position.z - oldBallPosision.z);
+        if(time%100 == 0) {
+            let error = 
+            (Math.abs(ballMesh.position.x) - Math.abs(oldBallPosision.x))+
+            (Math.abs(ballMesh.position.y) - Math.abs(oldBallPosision.y))+
+            (Math.abs(ballMesh.position.z) - Math.abs(oldBallPosision.z));
             
-            if(error < 0.05) {
+            if(error < 2) {
                 ballBody.type = CANNON.Body.STATIC;
+                oldBallPosision = {x: 0, y: 0, z: 0};
             }
 
             oldBallPosision = ballMesh.position.clone();;
@@ -111,7 +114,7 @@ function initGame() {
     });
     
     engine.onmouseup = () => {
-        console.log("CUSTOM MOUSE UP");
+        // CUSTOM MOUSE UP
     }
 }
 

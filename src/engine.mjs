@@ -11,11 +11,11 @@ let engine = {
     draw2d: default_draw,
     draw3d: default_draw3d,
     // Events
-    onkeyup: keyCode => {console.log("Default keyup. keycode:", keyCode)},
-    onkeydown: keyCode => {console.log("Default keydown. keycode:", keyCode)},
-    oninit: () => {console.log("Default oninit.")},
-    onmouseup: () => {console.log("Mouseup: ", engine.mouseX, engine.mouseY)},
-    onmousedown: () => {console.log("Mousedown: ", engine.mouseX, engine.mouseY)},
+    onkeyup: keyCode => {},
+    onkeydown: keyCode => {},
+    oninit: () => {},
+    onmouseup: () => {},
+    onmousedown: () => {},
     onmousemove: () => {},
     // context2d objects
     context2d: null,
@@ -89,7 +89,7 @@ function initThreeJS() {
     if(!engine.canvas2d) throw "2d canvas should be initialized first";
 
     engine.scene = new THREE.Scene();
-    engine.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    engine.camera = new THREE.PerspectiveCamera(75, 800 / 600, 0.1, 1000);
     engine.renderer = new THREE.WebGLRenderer();
     engine.renderer.setSize(canvas2d.width, canvas2d.height);
     engine.renderer.domElement.style.margin = 0;
