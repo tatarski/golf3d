@@ -1,7 +1,7 @@
 import * as THREE from "three.js";
 import * as CANNON from "cannon-es";
+import { playSound } from "./Sounds.mjs";
 
-// Function to create labels
 function addLabel(id, text, where) {
   let label = document.createElement("label");
   label.for = id;
@@ -63,19 +63,13 @@ let firingTheBall = {
   angle: 0,
 };
 
-// Shoot function with error handling
 function shoot() {
-  // Check if ballBody exists
+
   if (!ballBody) {
     console.error("Error: ballBody not defined");
     return;
   }
-
-  console.log("Creating audio object");
-  const audio = new Audio("./music/golf ball hit.wav");
-  console.log("Playing audio");
-  audio.play().catch((error) => {
-    console.error("Error playing audio:", error);});
+  playSound("golfBallHit"); 
 
   
 
@@ -92,7 +86,6 @@ function shoot() {
   ballBody.applyImpulse(impulse, relativePoint);
 }
 
-// Update firingTheBall object on slider changes
 power.addEventListener("input", () => {
   firingTheBall.power = parseFloat(power.value);
 });
@@ -105,6 +98,4 @@ angle.addEventListener("input", () => {
   firingTheBall.angle = parseFloat(angle.value);
 });
 
-
-// Export firingTheBall object
 export { firingTheBall };
