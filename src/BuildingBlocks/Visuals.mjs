@@ -1,5 +1,4 @@
 import * as THREE from "three.js";
-import * as CANNON from "cannon";
 import { engine } from "../engine.mjs";
 
 let skybox_texture = new THREE.TextureLoader().load('./images/SkyboxTexture.jpg')

@@ -1,5 +1,5 @@
 import * as THREE from "three.js";
-import * as CANNON from "cannon";
+import * as CANNON from "cannon-es";
 import { engine } from "../engine.mjs";
 
 /*
