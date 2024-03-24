@@ -6,6 +6,8 @@ import OrbitControls_ from 'three-orbit-controls';
 import { Ramp } from "./BuildingBlocks/Ramp.mjs";
 import {BuildingBlock} from "./BuildingBlocks/BuildingBlock.mjs";
 import { MovingPlatform } from "./BuildingBlocks/MovingPlatform.mjs";
+import { Cylinder } from "./BuildingBlocks/Cylinder.mjs";
+
 
 //Visuals for the game
 import {Skybox, skybox_texture} from "./BuildingBlocks/Visuals.mjs";
@@ -91,6 +93,8 @@ function initGame() {
     new BuildingBlock(30, -10, 0, 40, 10, 20);
 
     new MovingPlatform(10, 15, 0, 30, 30, 30, 10, 10, 10);
+
+    new Cylinder(19, 1, 0, 5, 10)
     // Set custom update function
     engine.update = (() => {
         x += (engine.mouseX - x) / 100;
