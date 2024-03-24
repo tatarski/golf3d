@@ -15,7 +15,7 @@ function createBall(x, y, z) {
     ballMaterialPhysics.restitution = 0.5; // Set the restitution coefficient to 0.5 (adjust as needed)
     ballMaterialPhysics.friction = 0.2;
     const ballShape = new CANNON.Sphere(1); // Radius 1
-    ballBody = new CANNON.Body({ mass: 10, position: new CANNON.Vec3(x, y, z), shape: ballShape, material: ballMaterialPhysics});
+    ballBody = new CANNON.Body({ mass: 1, position: new CANNON.Vec3(x, y, z), shape: ballShape, material: ballMaterialPhysics});
     // Adds the Linear Damping to the ball.
     ballBody.linearDamping = 0.3
     engine.cannonjs_world.addBody(ballBody);
@@ -70,7 +70,7 @@ function initGame() {
 
     // createGround();
     const block1 = new BuildingBlock(0, 5, 0, 20, 10, 20);
-    const block2 = new BuildingBlock(20, 0, 0, 50, 10, 20);
+    // const block2 = new BuildingBlock(20, 0, 0, 50, 10, 20);
 
     // new BuildingBlock(0, 5, 0, 20, 10, 20);
     new Ramp(16.5, 2.5, 0, 20, Math.PI, Math.PI/4);

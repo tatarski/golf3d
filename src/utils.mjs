@@ -29,4 +29,5 @@ function drawImage(myImageObject, x, y, xs, ys) {
 function isFunction(f) {
     return typeof (f) == "function";
 }
+
 export {areColliding, randomInteger, drawLine, drawImage, isFunction};
