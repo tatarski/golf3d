@@ -38,57 +38,33 @@ class MovingPlatform{
         this.tts = timeToStay;
         this.ttt = timeToTravel;
         this.timePassed = 0;
-        this.movingToSecondPosition = true;
-        this.movingInterval = setInterval(() => {
-            this.move();
-        }, 1);
+        this.movingToSecondPosition = -1; //this can be either 1 or -1 and determines the values of variables that affect the movement of the platform
+        this.movingInterval = setInterval(() => {this.move();}, 1);
         this.w = width;
         this.h = height;
         this.d = depth;
     }
     move(){
-        //TODO: Refactor
         if(this.timePassed >= this.ttt){
-            this.movingToSecondPosition = !this.movingToSecondPosition;
+            this.movingToSecondPosition = -this.movingToSecondPosition;
             clearInterval(this.movingInterval);
             this.timePassed = 0;
             setTimeout(() => { this.movingInterval = setInterval(() => { this.move() }, 1) }, this.tts);
         }
-        //console.log(ballMesh.position.x, this.Mesh.position.x)
-        if(this.movingToSecondPosition){
-            this.Mesh.position.set(this.Mesh.position.x-(this.xDiff/this.ttt),
-                                   this.Mesh.position.y-(this.yDiff/this.ttt),
-                                   this.Mesh.position.z-(this.zDiff/this.ttt)
-                                   );
-            this.Box.position.set(this.Box.position.x-(this.xDiff/this.ttt),
-                                   this.Box.position.y-(this.yDiff/this.ttt),
-                                   this.Box.position.z-(this.zDiff/this.ttt)
-                                 );
-            if(ballMesh.position.x > this.Mesh.position.x - this.d/2 && ballMesh.position.x < this.Mesh.position.x + this.d/2
-            && ballMesh.position.z > this.Mesh.position.z - this.w/2 && ballMesh.position.z < this.Mesh.position.z + this.w/2
-            && ballMesh.position.y > this.Mesh.position.y && ballMesh.position.y < this.Mesh.position.y + 2){
-                ballBody.position.set(ballBody.position.x -(this.xDiff/this.ttt),
-                    ballBody.position.y -(this.yDiff/this.ttt),
-                    ballBody.position.z -(this.zDiff/this.ttt),
-                );
-            }
-        }else{
-            this.Mesh.position.set(this.Mesh.position.x+(this.xDiff/this.ttt),
-                                   this.Mesh.position.y+(this.yDiff/this.ttt),
-                                   this.Mesh.position.z+(this.zDiff/this.ttt)
-                                   );
-            this.Box.position.set(this.Box.position.x+(this.xDiff/this.ttt),
-                                   this.Box.position.y+(this.yDiff/this.ttt),
-                                   this.Box.position.z+(this.zDiff/this.ttt)
-                                 );
-            if(ballMesh.position.x > this.Mesh.position.x - this.d/2 && ballMesh.position.x < this.Mesh.position.x + this.d/2
-            && ballMesh.position.z > this.Mesh.position.z - this.w/2 && ballMesh.position.z < this.Mesh.position.z + this.w/2
-            && ballMesh.position.y > this.Mesh.position.y && ballMesh.position.y < this.Mesh.position.y + 2){
-                ballBody.position.set(ballBody.position.x + (this.xDiff/this.ttt),
-                ballBody.position.y +(this.yDiff/this.ttt),
-                ballBody.position.z +(this.zDiff/this.ttt),
-                );
-            }
+
+        let xMove = this.movingToSecondPosition*(this.xDiff/this.ttt);
+        let yMove = this.movingToSecondPosition*(this.yDiff/this.ttt);
+        let zMove = this.movingToSecondPosition*(this.zDiff/this.ttt);
+
+        //Offset both the mesh and physics object
+        this.Mesh.position.set(this.Mesh.position.x+xMove, this.Mesh.position.y+yMove, this.Mesh.position.z+zMove);
+        this.Box.position.set(this.Box.position.x+xMove, this.Box.position.y+yMove, this.Box.position.z+zMove);
+
+        //This checks whether the ball is sitting atop the platform
+        if(ballMesh.position.x > this.Mesh.position.x - this.w/2 && ballMesh.position.x < this.Mesh.position.x + this.w/2
+        && ballMesh.position.z > this.Mesh.position.z - this.d/2 && ballMesh.position.z < this.Mesh.position.z + this.d/2
+        && ballMesh.position.y > this.Mesh.position.y + this.h/2 && ballMesh.position.y < this.Mesh.position.y + 2.1){ 
+            ballBody.position.set(ballBody.position.x + xMove, ballBody.position.y + yMove, ballBody.position.z + zMove); //Only update ballBody because the mesh will take its coordinates anyway
         }
         this.timePassed++;
     }
