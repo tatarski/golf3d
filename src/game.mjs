@@ -1,7 +1,7 @@
 import { engine } from "./engine.mjs";
 import { drawImage } from "./utils.mjs";
 import * as THREE from "three.js";
-import * as CANNON from "cannon";
+import * as CANNON from "cannon-es";
 import OrbitControls_ from 'three-orbit-controls';
 import { Ramp } from "./BuildingBlocks/Ramp.mjs";
 import {BuildingBlock} from "./BuildingBlocks/BuildingBlock.mjs";
