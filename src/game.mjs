@@ -5,6 +5,7 @@ import * as CANNON from "cannon-es";
 import OrbitControls_ from 'three-orbit-controls';
 import { Ramp } from "./BuildingBlocks/Ramp.mjs";
 import {BuildingBlock} from "./BuildingBlocks/BuildingBlock.mjs";
+import { MovingPlatform } from "./BuildingBlocks/MovingPlatform.mjs";
 
 let ballMesh = null;
 let ballBody = null;
@@ -77,6 +78,8 @@ function initGame() {
     new Ramp(40, -5, 0, 20, Math.PI/2, 0);
     
     new BuildingBlock(30, -10, 0, 40, 10, 20);
+
+    new MovingPlatform(10, 15, 0, 30, 30, 30, 10, 10, 10);
     // Set custom update function
     engine.update = (() => {
         x += (engine.mouseX - x) / 100;
