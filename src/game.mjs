@@ -7,6 +7,9 @@ import { Ramp } from "./BuildingBlocks/Ramp.mjs";
 import {BuildingBlock} from "./BuildingBlocks/BuildingBlock.mjs";
 import { MovingPlatform } from "./BuildingBlocks/MovingPlatform.mjs";
 
+//Visuals for the game
+import {Skybox, skybox_texture} from "./BuildingBlocks/Visuals.mjs";
+
 let ballMesh = null;
 let ballBody = null;
 function createBall(x, y, z) {
@@ -57,16 +60,24 @@ function initGame() {
     // Set up camera
     engine.camera.position.set(0, 20, 80);
     engine.camera.lookAt(0, 10, 0);
+    
+    //change far frustum plane to account for skybox
+    engine.far = 10000
 
     // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+
+    //Ambient light is now the skybox
+    const ambientLight = new THREE.AmbientLight(skybox_texture, 0.5);
     engine.scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffaaff, 0.5);
+    const directionalLight = new THREE.DirectionalLight(0xffdd66, 0.5);
     directionalLight.position.set(10, 20, 10);
     directionalLight.lookAt(0, 0, 0);
     engine.scene.add(directionalLight);
 
+    //Setup visuals
+    const skybox = new Skybox()
+    //Setup game
     createBall(10, 30, 0);
 
     // createGround();
