@@ -1,11 +1,19 @@
 import * as THREE from "three.js";
 import * as CANNON from "cannon-es";
-import { map } from "lodash";
 
+// Function to create labels
+function addLabel(id, text, where) {
+  let label = document.createElement("label");
+  label.for = id;
+  label.innerHTML = text;
+  where.appendChild(label);
+}
+
+// Create UI elements
 let inputs = document.createElement("div");
 inputs.id = "inputs";
 inputs.style.position = "absolute";
-inputs.style.right = "0";
+inputs.style.right = "0px";
 inputs.style.display = "flex";
 inputs.style.flexDirection = "column";
 inputs.style.justifyContent = "start";
@@ -41,52 +49,61 @@ angle.step = 0.01;
 addLabel("angle", "Angle:", inputs);
 inputs.appendChild(angle);
 
-let button = document.createElement("button")
+let button = document.createElement("button");
 button.id = "shoot";
 button.innerHTML = "Shoot";
-button.onclick = shoot;
 inputs.appendChild(button);
 
+// Firing data object
 let firingTheBall = {
-    Shoot: () => {shoot()},
-    power: 0.1,
-    direction: 0,
-    angle: 0
+  shoot: shoot,
+  power: 0.1,
+  direction: 0,
+  angle: 0,
 };
 
+// Shoot function with error handling
 function shoot() {
-    // Is STATIC
-    if(ballBody.type == 2) {
-        ballBody.type = 1;
-    }
+  // Check if ballBody exists
+  if (!ballBody) {
+    console.error("Error: ballBody not defined");
+    return;
+  }
 
-    let calPower = firingTheBall.power * 2;
-    let calAngle = firingTheBall.angle;
-    let calDirection = (firingTheBall.direction - 180) * Math.PI/180;
+  console.log("Creating audio object");
+  const audio = new Audio("./music/camera.mp3");
+  console.log("Playing audio");
+  audio.play().catch((error) => {
+    console.error("Error playing audio:", error);});
 
-    // let impulse = new CANNON.Vec3(velocityX, velocityY, velocityZ);
-    let impulse = new CANNON.Vec3(Math.cos(calDirection) * calPower, calAngle * calPower * 10, Math.sin(calDirection) * calPower);
-    let relativePoint = new CANNON.Vec3();
-    ballBody.applyImpulse(impulse, relativePoint);
+  
+
+  let calPower = firingTheBall.power * 2;
+  let calAngle = firingTheBall.angle;
+  let calDirection = (firingTheBall.direction - 180) * Math.PI / 180;
+
+  let impulse = new CANNON.Vec3(
+    Math.cos(calDirection) * calPower,
+    calAngle * calPower * 10,
+    Math.sin(calDirection) * calPower
+  );
+  let relativePoint = new CANNON.Vec3();
+  ballBody.applyImpulse(impulse, relativePoint);
 }
 
+// Update firingTheBall object on slider changes
 power.addEventListener("input", () => {
-    firingTheBall.power = parseFloat(power.value)
-})
+  firingTheBall.power = parseFloat(power.value);
+});
 
 direction.addEventListener("input", () => {
-    firingTheBall.direction = parseFloat(direction.value)
-})
+  firingTheBall.direction = parseFloat(direction.value);
+});
 
 angle.addEventListener("input", () => {
-    firingTheBall.angle = parseFloat(angle.value)
-})
+  firingTheBall.angle = parseFloat(angle.value);
+});
 
-function addLabel(id, text, where) {
-    let label = document.createElement("label");
-    label.for = id;
-    label.innerHTML = text;
-    where.appendChild(label);
-}
 
-export {firingTheBall};
+// Export firingTheBall object
+export { firingTheBall };

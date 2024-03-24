@@ -1,0 +1,271 @@
+[33mcommit 6ee185d053f84536a6d8099b72ab377637d5d452[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mgolf3d[m[33m, [m[1;31morigin/golf3d[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 21c0844 80a82a1
+Author: Your Name <you@example.com>
+Date:   Sun Mar 24 11:06:50 2024 +0200
+
+    Merge branch 'VencislavManoilov-golf3d' into golf3d
+
+[33mcommit 80a82a1d1eadd63841a64e7f1d711180c817ecb0[m
+Author: Your Name <you@example.com>
+Date:   Sun Mar 24 11:05:25 2024 +0200
+
+    Refactor
+
+[33mcommit a3d4cd44db93cd0ceba59f6ae87c3c165477fafc[m
+Merge: 21c0844 f7666c0
+Author: Your Name <you@example.com>
+Date:   Sun Mar 24 11:05:06 2024 +0200
+
+    Merge branch 'golf3d' of github.com:VencislavManoilov/golf3d into VencislavManoilov-golf3d
+
+[33mcommit 21c08442e7a148d4707bfcecc055bfa39456d404[m
+Author: Your Name <you@example.com>
+Date:   Sun Mar 24 10:12:46 2024 +0200
+
+    Fix dependancy
+
+[33mcommit 62c373f79b0f8a43820ae2dc3d78693de3b93f98[m
+Merge: a7c7483 3a611d8
+Author: Your Name <you@example.com>
+Date:   Sun Mar 24 10:08:37 2024 +0200
+
+    Merge branch 'MateussDev-backrooms-golf3d' into golf3d
+
+[33mcommit 3a611d8fed363a20d932ae6461f659bdd80bef60[m
+Merge: a7c7483 4f7dfc3
+Author: Your Name <you@example.com>
+Date:   Sun Mar 24 10:08:17 2024 +0200
+
+    Merge branch 'golf3d' of github.com:MateussDev-backrooms/golf3d into MateussDev-backrooms-golf3d
+
+[33mcommit a7c74836eb8211a0fd85bbc0cfac8c7a6be15bcb[m
+Merge: ef477eb 2ff42b7
+Author: Your Name <you@example.com>
+Date:   Sun Mar 24 10:05:46 2024 +0200
+
+    Merge branch 'Trepacha-golf3d' into golf3d
+
+[33mcommit 2ff42b7bdd18fa99a471fa870693bbf5060b575d[m
+Merge: ef477eb 8d40bec
+Author: Your Name <you@example.com>
+Date:   Sun Mar 24 10:04:08 2024 +0200
+
+    Merge branch 'golf3d' of github.com:Trepacha/golf3d into Trepacha-golf3d
+
+[33mcommit ef477eb4942ec49c417b954def9cfe2cfa72f3e5[m
+Author: Your Name <you@example.com>
+Date:   Sun Mar 24 09:48:28 2024 +0200
+
+    Change cannonjs to cannones
+
+[33mcommit 0ec485d8b363fc261a2558c8034698a491dabbc6[m
+Author: Your Name <you@example.com>
+Date:   Sun Mar 24 09:44:46 2024 +0200
+
+    Refactor
+
+[33mcommit 7ffcc86d45f0a07065203abebe3d23b3d3ea9c58[m
+Merge: 5a48737 3d3766e
+Author: Your Name <you@example.com>
+Date:   Sun Mar 24 08:46:16 2024 +0200
+
+    Merge branch 'THT2-golf3d' into golf3d
+
+[33mcommit 3d3766e31c9d015c474bd00d5c8361c954a44eb7[m
+Merge: 5a48737 1f3e3d4
+Author: Your Name <you@example.com>
+Date:   Sun Mar 24 08:45:30 2024 +0200
+
+    Fix conflicts
+
+[33mcommit 5a487377e9b75a600ee1bdee635993b2ad450aaf[m
+Author: Your Name <you@example.com>
+Date:   Sun Mar 24 08:40:14 2024 +0200
+
+    Refactor
+
+[33mcommit f7666c021e26c5c5ff064dcd611a2be5c22b3788[m
+Author: VencislavManoilov <93076150+VencislavManoilov@users.noreply.github.com>
+Date:   Wed Mar 20 23:16:06 2024 +0200
+
+    I am gunius! I am done here
+
+[33mcommit 8f3fe703d18d7b81fdd19a8103237ee951b63ef3[m
+Author: VencislavManoilov <93076150+VencislavManoilov@users.noreply.github.com>
+Date:   Mon Mar 18 22:06:51 2024 +0200
+
+    I am little stupid
+
+[33mcommit 8d40becb5369c6a146d4b29ee9f5b4df081f92b6[m
+Author: Trepacha <mitkosdimov@gmail.com>
+Date:   Mon Mar 18 21:32:15 2024 +0200
+
+    Added moving platform building block
+
+[33mcommit c565a03cd454699dffbc0f88c85b59187b2f21ac[m
+Author: VencislavManoilov <93076150+VencislavManoilov@users.noreply.github.com>
+Date:   Mon Mar 18 18:38:35 2024 +0200
+
+    Almost done! I will fix it tomorrow
+
+[33mcommit 1f3e3d4befb51e3899695a8be0bc6bc8ecbc0dfb[m
+Author: Dimitar Tatarski <tatarski.dim@gmail.com>
+Date:   Sun Mar 17 12:15:19 2024 +0200
+
+    Delete public/index_bundle.js
+
+[33mcommit 4f7dfc37dc8a12f1440d5594d0c3f90334c86aa6[m
+Author: MateussDev-backrooms <thisismateussdev@gmail.com>
+Date:   Sun Mar 17 12:12:00 2024 +0200
+
+    Add wonky skybox stuff + changes to lighting from solid color to skybox color
+
+[33mcommit 4270d074374379743c8510871350acb6467ac50a[m
+Author: Your Name <you@example.com>
+Date:   Sun Mar 17 12:10:11 2024 +0200
+
+    Add more building blocks
+
+[33mcommit 619dabb29e36a744579921c9b66970e7350b371e[m
+Author: THT2 <99603537+THT2@users.noreply.github.com>
+Date:   Sun Mar 17 11:50:46 2024 +0200
+
+    Fixed the friction and damping simulation.
+
+[33mcommit 08be20f90fc5be46e7a333001b47de9f9f5ebb4f[m
+Author: tatarski.dim <tatarski.dim@gmail.com>
+Date:   Sat Mar 16 13:46:29 2024 +0200
+
+    Fix physics
+
+[33mcommit 946a055aef851b2b20af1217e9b1df4ae751b717[m
+Author: tatarski.dim <tatarski.dim@gmail.com>
+Date:   Fri Mar 15 18:45:30 2024 +0200
+
+    Add dependancy
+
+[33mcommit 1d07a0d9ddf5db53901ae8da156a6652ed726b1c[m
+Author: tatarski.dim <tatarski.dim@gmail.com>
+Date:   Fri Mar 15 18:34:02 2024 +0200
+
+    add advanced engine
+
+[33mcommit 9abba74c0a55e8d4d95ef656784377c056984abe[m
+Author: tatarski.dim <tatarski.dim@gmail.com>
+Date:   Fri Nov 5 14:42:46 2021 +0200
+
+    Fix image name
+
+[33mcommit 2c24ad008d868d69c975e8075cee624b69da0926[m
+Author: tatarski <tatarski@gmail.com>
+Date:   Tue Aug 24 20:44:00 2021 +0300
+
+    Fix error messages
+
+[33mcommit 095aa0f86f23c126f88653c302e944c298f226cc[m
+Author: tatarski <tatarski@gmail.com>
+Date:   Tue Aug 17 13:01:03 2021 +0300
+
+    Add new image list
+
+[33mcommit b563fd15e9e647ea25db510f604fbd2678ffb14f[m
+Author: tatarski <tatarski@gmail.com>
+Date:   Sun Aug 15 01:06:51 2021 +0300
+
+    Update image name/backup color list
+
+[33mcommit 9e55b2a33faa08d7115144db4290d6109efb13d2[m
+Author: tatarski <tatarski@gmail.com>
+Date:   Sun Aug 15 00:13:23 2021 +0300
+
+    add todo
+
+[33mcommit 2e70c7a9e7d03d7866e709c60a3f2aaefb55e525[m
+Author: tatarski <tatarski@gmail.com>
+Date:   Wed Aug 4 22:49:04 2021 +0300
+
+    Final changes
+
+[33mcommit e11914450b5c0bb512995325db9005787baa02b3[m
+Author: tatarski <tatarski@gmail.com>
+Date:   Wed Aug 4 22:46:08 2021 +0300
+
+    Final changes
+
+[33mcommit 32ad6a580f1dcef061108390455bdc2e069ce66d[m
+Author: tatarski <tatarski@gmail.com>
+Date:   Wed Aug 4 22:04:18 2021 +0300
+
+    Add todo
+
+[33mcommit 49e6bcb059581c46df61e63e6aa5def46feb4daa[m
+Author: tatarski <tatarski@gmail.com>
+Date:   Wed Aug 4 21:53:05 2021 +0300
+
+    Refactor, all exeecution begins on body load
+
+[33mcommit a71f1d6ba301a2650986f33409110bdc114ecd18[m
+Author: tatarski <tatarski@gmail.com>
+Date:   Mon Jul 26 04:41:32 2021 +0300
+
+    Refactor
+
+[33mcommit d129da1fe7855feab7dd31cdbb266383dcf467b5[m
+Author: tatarski <tatarski@gmail.com>
+Date:   Mon Jul 26 04:37:27 2021 +0300
+
+    Refactor
+
+[33mcommit 27fa94bf5351ba7a5a156206140ddfaa951d29ca[m
+Author: tatarski <tatarski@gmail.com>
+Date:   Sat Jul 24 21:22:44 2021 +0300
+
+    Refactor
+
+[33mcommit 39c9275b8357d8b9df5baf7d655cbf8add195c67[m
+Author: tatarski <tatarski@gmail.com>
+Date:   Sat Jul 24 21:17:36 2021 +0300
+
+    Refactor
+
+[33mcommit cbbb16c934f5d916bf9a3bb4542797b7fbed5b80[m
+Author: tatarski <tatarski@gmail.com>
+Date:   Thu Jul 1 23:09:29 2021 +0300
+
+    add images download link1
+
+[33mcommit 39055d02e441b67607c7d18ccf5aca91bd9c60ee[m
+Author: tatarski <tatarski@gmail.com>
+Date:   Thu Jul 1 22:57:48 2021 +0300
+
+    Refactor / add init function
+
+[33mcommit 7662a9a74fd22b017317baba428b2a746e485b20[m
+Author: tatarski <tatarski@gmail.com>
+Date:   Thu Jul 1 22:45:41 2021 +0300
+
+    Use boundingRect for mouse position, refactor events
+
+[33mcommit f42a3b9407e45961b40a749fbc85d7686ca59a96[m
+Author: tatarski <tatarski@gmail.com>
+Date:   Thu Jul 1 22:28:07 2021 +0300
+
+    Images load iff draw is called on them
+
+[33mcommit 28cf5639ad2b7c2afc4b6598c7cb4d56e49e96ae[m
+Author: tatarski <tatarski.dim@gmail.com>
+Date:   Thu Jul 1 20:56:04 2021 +0300
+
+    Fix readme2
+
+[33mcommit 32f7b0a0cf84573f6f71023b33ba7669151e661a[m
+Author: tatarski <tatarski.dim@gmail.com>
+Date:   Thu Jul 1 20:55:26 2021 +0300
+
+    Fix readme
+
+[33mcommit cb08b9028f2ed07cf26d8db2d6cfd499ca41a84d[m
+Author: tatarski <tatarski.dim@gmail.com>
+Date:   Thu Jul 1 20:53:32 2021 +0300
+
+    Framework from last year
