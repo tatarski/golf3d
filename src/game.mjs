@@ -31,7 +31,9 @@ function createBall(x, y, z) {
 
     // Create visual representations (meshes)
     const ballGeometry = new THREE.SphereGeometry(1, 32, 32);
-    const ballMaterial = new THREE.MeshPhongMaterial({ color: 0xffff00 });
+    
+    // It is golf. The ball must be white
+    const ballMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
     ballMesh = new THREE.Mesh(ballGeometry, ballMaterial);
 
     window.ballMesh = ballMesh;
@@ -71,7 +73,7 @@ function initGame() {
     engine.camera.lookAt(0, 10, 0);
     
     //change far frustum plane to account for skybox
-    engine.far = 10000
+    engine.far = 10000;
 
     // Lighting
 
@@ -85,7 +87,11 @@ function initGame() {
     engine.scene.add(directionalLight);
 
     //Setup visuals
-    const skybox = new Skybox()
+    const skybox = new Skybox();
+
+    // Adds a ground
+    new BuildingBlock(0, -10, 0, 1000, 1, 1000);
+
     //Setup game
     createBall(10, 30, 0);
 
@@ -130,13 +136,15 @@ function initGame() {
             }
             
             if(error < 1) {
-                console.log("usra se", error, bx, by, bz, obx, oby, obz);
                 ballBody.type = CANNON.Body.STATIC;
                 oldBallPosision = {x: 0, y: 0, z: 0};
             }
 
             obx = Math.abs(ballMesh.position.x), oby = Math.abs(ballMesh.position.y), obz = Math.abs(ballMesh.position.z);
         }
+
+        // Gets the angle between the camera and the ball so you can shoot at the direction you are looking
+        firingTheBall.direction = Math.atan2(ballMesh.position.z - engine.camera.position.z, ballMesh.position.x - engine.camera.position.x);
 
         // ballMesh.quaternion.copy(ballBody.quaternion);
     });
@@ -150,7 +158,7 @@ function initGame() {
     });
     
     engine.onmouseup = () => {
-        // CUSTOM MOUSE UP
+        // firingTheBall.Shoot();
     }
 }
 
