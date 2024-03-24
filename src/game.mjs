@@ -95,11 +95,11 @@ function initGame() {
 
     // new BuildingBlock(0, 5, 0, 20, 10, 20);
     new Ramp(16.5, 2.5, 0, 20, Math.PI, Math.PI/4);
-    new Ramp(40, -5, 0, 20, Math.PI/2, 0);
+    new Ramp(40, -5.2, 0, 20, Math.PI/2, 0);
     
     new BuildingBlock(30, -10, 0, 40, 10, 20);
 
-    new MovingPlatform(10, 15, 0, 30, 30, 30, 10, 10, 10);
+    new MovingPlatform(15, 40, 0, 30, 30, 30, 10, 10, 10);
     // Set custom update function
     engine.update = (() => {
         time++;
