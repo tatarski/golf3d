@@ -51,6 +51,7 @@ inputs.appendChild(angle);
 
 let button = document.createElement("button");
 button.id = "shoot";
+button.onclick=shoot;
 button.innerHTML = "Shoot";
 inputs.appendChild(button);
 
@@ -71,7 +72,7 @@ function shoot() {
   }
 
   console.log("Creating audio object");
-  const audio = new Audio("./music/camera.mp3");
+  const audio = new Audio("./music/golf ball hit.wav");
   console.log("Playing audio");
   audio.play().catch((error) => {
     console.error("Error playing audio:", error);});
