@@ -1,3 +1,4 @@
 /images/
 /new_images/
 /node_modules/*
+/public/index_bundle.js
