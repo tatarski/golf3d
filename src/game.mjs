@@ -6,6 +6,7 @@ import OrbitControls_ from 'three-orbit-controls';
 import { Ramp } from "./BuildingBlocks/Ramp.mjs";
 import {BuildingBlock} from "./BuildingBlocks/BuildingBlock.mjs";
 import { MovingPlatform } from "./BuildingBlocks/MovingPlatform.mjs";
+import { Cylinder } from "./BuildingBlocks/Cylinder.mjs";
 //Visuals for the game
 import {Skybox, skybox_texture} from "./BuildingBlocks/Visuals.mjs";
 import { firingTheBall } from "./firingTheBall.mjs";
@@ -87,7 +88,7 @@ function initGame() {
     //Setup visuals
     const skybox = new Skybox()
     //Setup game
-    createBall(10, 30, 0);
+    createBall(11, 30, 0);
 
     // createGround();
     const block1 = new BuildingBlock(0, 5, 0, 20, 10, 20);
@@ -99,6 +100,8 @@ function initGame() {
     
     new BuildingBlock(30, -10, 0, 40, 10, 20);
 
+
+    new Cylinder(40, -6, 2, 2, 5)
     new MovingPlatform(15, 40, 0, 30, 30, 30, 10, 10, 10);
     // Set custom update function
     engine.update = (() => {
