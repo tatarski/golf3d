@@ -42,14 +42,19 @@ class MovingPlatform{
         this.movingInterval = setInterval(() => {
             this.move();
         }, 1);
+        this.w = width;
+        this.h = height;
+        this.d = depth;
     }
     move(){
+        //TODO: Refactor
         if(this.timePassed >= this.ttt){
             this.movingToSecondPosition = !this.movingToSecondPosition;
             clearInterval(this.movingInterval);
             this.timePassed = 0;
             setTimeout(() => { this.movingInterval = setInterval(() => { this.move() }, 1) }, this.tts);
         }
+        //console.log(ballMesh.position.x, this.Mesh.position.x)
         if(this.movingToSecondPosition){
             this.Mesh.position.set(this.Mesh.position.x-(this.xDiff/this.ttt),
                                    this.Mesh.position.y-(this.yDiff/this.ttt),
@@ -59,6 +64,14 @@ class MovingPlatform{
                                    this.Box.position.y-(this.yDiff/this.ttt),
                                    this.Box.position.z-(this.zDiff/this.ttt)
                                  );
+            if(ballMesh.position.x > this.Mesh.position.x - this.d/2 && ballMesh.position.x < this.Mesh.position.x + this.d/2
+            && ballMesh.position.z > this.Mesh.position.z - this.w/2 && ballMesh.position.z < this.Mesh.position.z + this.w/2
+            && ballMesh.position.y > this.Mesh.position.y && ballMesh.position.y < this.Mesh.position.y + 2){
+                ballBody.position.set(ballBody.position.x -(this.xDiff/this.ttt),
+                    ballBody.position.y -(this.yDiff/this.ttt),
+                    ballBody.position.z -(this.zDiff/this.ttt),
+                );
+            }
         }else{
             this.Mesh.position.set(this.Mesh.position.x+(this.xDiff/this.ttt),
                                    this.Mesh.position.y+(this.yDiff/this.ttt),
@@ -68,6 +81,14 @@ class MovingPlatform{
                                    this.Box.position.y+(this.yDiff/this.ttt),
                                    this.Box.position.z+(this.zDiff/this.ttt)
                                  );
+            if(ballMesh.position.x > this.Mesh.position.x - this.d/2 && ballMesh.position.x < this.Mesh.position.x + this.d/2
+            && ballMesh.position.z > this.Mesh.position.z - this.w/2 && ballMesh.position.z < this.Mesh.position.z + this.w/2
+            && ballMesh.position.y > this.Mesh.position.y && ballMesh.position.y < this.Mesh.position.y + 2){
+                ballBody.position.set(ballBody.position.x + (this.xDiff/this.ttt),
+                ballBody.position.y +(this.yDiff/this.ttt),
+                ballBody.position.z +(this.zDiff/this.ttt),
+                );
+            }
         }
         this.timePassed++;
     }
