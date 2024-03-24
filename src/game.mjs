@@ -13,7 +13,7 @@ import { firingTheBall } from "./firingTheBall.mjs";
 let ballMesh = null;
 let ballBody = null;
 
-const orbitControls = false;
+const orbitControls = true;
 
 let oldBallPosision = {x: 0, y: 0, z: 0};
 
@@ -63,7 +63,7 @@ function initGame() {
     // Orbit controls
     if(orbitControls) {
         const OrbitControls = new OrbitControls_(THREE);
-        const controls = new OrbitControls(engine.camera);
+        const controls = new OrbitControls(engine.camera, engine.canvas2d);
     }
 
     // Set up camera
@@ -114,7 +114,7 @@ function initGame() {
             (Math.abs(ballMesh.position.y) - Math.abs(oldBallPosision.y))+
             (Math.abs(ballMesh.position.z) - Math.abs(oldBallPosision.z));
             
-            if(error < 2) {
+            if(error < 0.) {
                 ballBody.type = CANNON.Body.STATIC;
                 oldBallPosision = {x: 0, y: 0, z: 0};
             }

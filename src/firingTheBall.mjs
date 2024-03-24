@@ -1,5 +1,5 @@
 import * as THREE from "three.js";
-import * as CANNON from "cannon";
+import * as CANNON from "cannon-es";
 import { map } from "lodash";
 
 let inputs = document.createElement("div");
