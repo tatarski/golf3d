@@ -1,6 +1,6 @@
 import * as THREE from "three.js";
 import * as CANNON from "cannon-es";
-import { playSound } from "./Sounds.mjs";
+import { playRandomSoundEffect } from "./Sounds.mjs";
 
 function addLabel(id, text, where) {
   let label = document.createElement("label");
@@ -69,7 +69,7 @@ function shoot() {
     console.error("Error: ballBody not defined");
     return;
   }
-  playSound("golfBallHit"); 
+  playRandomSoundEffect(); 
 
   
 
