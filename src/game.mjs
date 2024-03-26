@@ -9,6 +9,7 @@ import { MovingPlatform } from "./BuildingBlocks/MovingPlatform.mjs";
 //Visuals for the game
 import {Skybox, skybox_texture} from "./BuildingBlocks/Visuals.mjs";
 import { firingTheBall } from "./firingTheBall.mjs";
+import { Sounds } from "./Sounds.mjs";
 
 let ballMesh = null;
 let ballBody = null;

@@ -1,7 +1,9 @@
 import * as THREE from "three.js";
 import * as CANNON from "cannon-es";
-import { map } from "lodash";
+import { playRandomSoundEffect } from "./Sounds.mjs";
 
+
+// Create UI elements
 let inputs = document.createElement("div");
 inputs.id = "inputs";
 inputs.style.position = "absolute";
@@ -41,52 +43,63 @@ angle.step = 0.01;
 addLabel("angle", "Angle:", inputs);
 inputs.appendChild(angle);
 
-let button = document.createElement("button")
+let button = document.createElement("button");
 button.id = "shoot";
+button.onclick=shoot;
 button.innerHTML = "Shoot";
-button.onclick = shoot;
 inputs.appendChild(button);
 
+// Firing data object
 let firingTheBall = {
-    Shoot: () => {shoot()},
-    power: 0.1,
-    direction: 0,
-    angle: 0
+  Shoot: () => {shoot()},
+  power: 0.1,
+  direction: 0,
+  angle: 0
 };
 
 function shoot() {
-    // Is STATIC
-    if(ballBody.type == 2) {
-        ballBody.type = 1;
-    }
+  // Ensure ballBody is active before applying impulse
+  if (ballBody && ballBody.type === 2) {
+    ballBody.type = 1;
+  }
 
-    let calPower = firingTheBall.power * 2;
-    let calAngle = firingTheBall.angle;
-    let calDirection = (firingTheBall.direction - 180) * Math.PI/180;
+  if (!ballBody) {
+    console.error("Error: ballBody not defined");
+    return;
+  }
 
-    // let impulse = new CANNON.Vec3(velocityX, velocityY, velocityZ);
-    let impulse = new CANNON.Vec3(Math.cos(calDirection) * calPower, calAngle * calPower * 10, Math.sin(calDirection) * calPower);
-    let relativePoint = new CANNON.Vec3();
-    ballBody.applyImpulse(impulse, relativePoint);
+  playRandomSoundEffect();
+
+  let calPower = firingTheBall.power * 2;
+  let calAngle = firingTheBall.angle;
+  let calDirection = (firingTheBall.direction - 180) * Math.PI / 180;
+
+  let impulse = new CANNON.Vec3(
+    Math.cos(calDirection) * calPower,
+    calAngle * calPower * 10,
+    Math.sin(calDirection) * calPower
+  );
+  let relativePoint = new CANNON.Vec3();
+  ballBody.applyImpulse(impulse, relativePoint);
 }
 
 power.addEventListener("input", () => {
-    firingTheBall.power = parseFloat(power.value)
-})
+  firingTheBall.power = parseFloat(power.value);
+});
 
 direction.addEventListener("input", () => {
-    firingTheBall.direction = parseFloat(direction.value)
-})
+  firingTheBall.direction = parseFloat(direction.value);
+});
 
 angle.addEventListener("input", () => {
-    firingTheBall.angle = parseFloat(angle.value)
-})
+  firingTheBall.angle = parseFloat(angle.value);
+});
 
 function addLabel(id, text, where) {
-    let label = document.createElement("label");
-    label.for = id;
-    label.innerHTML = text;
-    where.appendChild(label);
+  let label = document.createElement("label");
+  label.for = id;
+  label.innerHTML = text;
+  where.appendChild(label);
 }
 
-export {firingTheBall};
+export { firingTheBall };
