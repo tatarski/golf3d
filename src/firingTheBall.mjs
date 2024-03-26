@@ -2,18 +2,12 @@ import * as THREE from "three.js";
 import * as CANNON from "cannon-es";
 import { playRandomSoundEffect } from "./Sounds.mjs";
 
-function addLabel(id, text, where) {
-  let label = document.createElement("label");
-  label.for = id;
-  label.innerHTML = text;
-  where.appendChild(label);
-}
 
 // Create UI elements
 let inputs = document.createElement("div");
 inputs.id = "inputs";
 inputs.style.position = "absolute";
-inputs.style.right = "0px";
+inputs.style.right = "0";
 inputs.style.display = "flex";
 inputs.style.flexDirection = "column";
 inputs.style.justifyContent = "start";
@@ -57,21 +51,24 @@ inputs.appendChild(button);
 
 // Firing data object
 let firingTheBall = {
-  shoot: shoot,
+  Shoot: () => {shoot()},
   power: 0.1,
   direction: 0,
-  angle: 0,
+  angle: 0
 };
 
 function shoot() {
+  // Ensure ballBody is active before applying impulse
+  if (ballBody && ballBody.type === 2) {
+    ballBody.type = 1;
+  }
 
   if (!ballBody) {
     console.error("Error: ballBody not defined");
     return;
   }
-  playRandomSoundEffect(); 
 
-  
+  playRandomSoundEffect();
 
   let calPower = firingTheBall.power * 2;
   let calAngle = firingTheBall.angle;
@@ -97,5 +94,12 @@ direction.addEventListener("input", () => {
 angle.addEventListener("input", () => {
   firingTheBall.angle = parseFloat(angle.value);
 });
+
+function addLabel(id, text, where) {
+  let label = document.createElement("label");
+  label.for = id;
+  label.innerHTML = text;
+  where.appendChild(label);
+}
 
 export { firingTheBall };
