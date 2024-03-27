@@ -1,6 +1,6 @@
 import * as THREE from "three.js";
 import * as CANNON from "cannon-es";
-import { playRandomSoundEffect } from "./Sounds.mjs";
+import { playRandomSoundEffect, playMusic } from "./Sounds.mjs";
 
 
 // Create UI elements
@@ -56,7 +56,10 @@ let firingTheBall = {
   direction: 0,
   angle: 0
 };
-
+document.body.addEventListener('click', (event) => {
+  console.log("Clicked at X:", event.clientX, "Y:", event.clientY);
+  playMusic('./music/song.mp3'); // Call playMusic function here
+});
 function shoot() {
   // Ensure ballBody is active before applying impulse
   if (ballBody && ballBody.type === 2) {
