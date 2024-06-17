@@ -3,6 +3,9 @@ import { playRandomSoundEffect, playMusic } from "./Sounds.mjs";
 import { ballBody } from "./ball.mjs";
 import { menuConfig } from "./menu.mjs";
 
+let lastShotTime = 0;
+const cooldownTime = 10 * 500; // 10 seconds in milliseconds
+
 let firingTheBall = {
   power: 1,
   direction: 0,
@@ -56,26 +59,36 @@ function initShootingUI() {
 
 
 function shoot() {
+  const currentTime = Date.now();
+  
+  // Check if enough time has passed since the last shot
+  if (currentTime - lastShotTime < cooldownTime) {0
+    console.log("Cooldown period active. Ostavat ti owe", (currentTime - lastShotTime)/1000, "sekundi do 5" );
+    return;
+  }
+
+  // Reset last shot time to current time
+  lastShotTime = currentTime;
+
   firingTheBall.isBallShot = true;
-  if(menuConfig.sfxEnabled){ //there is no pause menu so this should work for now
-    playRandomSoundEffect();
+  if (menuConfig.sfxEnabled) { 
+    playRandomSoundEffect(); 
   }
   firingTheBall.shotFromWhere.x = ballBody.position.x;
   firingTheBall.shotFromWhere.y = ballBody.position.y;
   firingTheBall.shotFromWhere.z = ballBody.position.z;
 
-  // Is STATIC
   if (ballBody.type == CANNON.Body.STATIC) {
     ballBody.type = CANNON.Body.DYNAMIC;
   }
 
-  let calPower = firingTheBall.power*10;
+  let calPower = firingTheBall.power;
   let calDirection = firingTheBall.direction;
 
-  // let impulse = new CANNON.Vec3(velocityX, velocityY, velocityZ);
   let impulse = new CANNON.Vec3(Math.cos(calDirection) * calPower, 0, Math.sin(calDirection) * calPower);
   let relativePoint = new CANNON.Vec3();
   ballBody.applyImpulse(impulse, relativePoint);
 }
+
 
 export { firingTheBall };

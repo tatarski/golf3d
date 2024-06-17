@@ -64,6 +64,7 @@ class Menu {
         if(menuConfig.musicEnabled){ //there is no pause menu so this should work for now
             playMusic();
             firingTheBall.initUI();
+
         }
     }
     toggleMusic(){

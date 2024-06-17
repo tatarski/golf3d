@@ -29,15 +29,35 @@ function drawImage(myImageObject, x, y, xs, ys) {
 function isFunction(f) {
     return typeof (f) == "function";
 }
-
-function createButton(text,x,y,w,h,buttonCol,fontsize,textCol, font = "Arial"){
-    //Create background
-    engine.context2d.fillStyle = buttonCol;
-    engine.context2d.fillRect(x,y,w,h);
-    //Create text
-    engine.context2d.fillStyle = textCol;
-    engine.context2d.font = fontsize + "px " + font;
-    //i do not know why this works, it but it just does
-    engine.context2d.fillText(text,x + w/2 - (text.length*fontsize)/4, y + h/2 + fontsize/3); 
+function drawText(text, x, y, fontsize = 16, textCol = "black", font = "Arial") {
+    const ctx = engine.context2d;
+    ctx.fillStyle = textCol;
+    ctx.font = `${fontsize}px ${font}`;
+    ctx.textAlign = "left";
+    ctx.textBaseline = "top";
+    ctx.fillText(text, x, y);
 }
-export {areColliding, randomInteger, drawLine, drawImage, isFunction, createButton};
+
+function createButton(text, x, y, w, h, buttonCol, fontsize, textCol, borderRadius = 10, font = "Arial") {
+    const ctx = engine.context2d;
+    ctx.fillStyle = buttonCol;
+    ctx.beginPath();
+    ctx.moveTo(x + borderRadius, y);
+    ctx.lineTo(x + w - borderRadius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + borderRadius);
+    ctx.lineTo(x + w, y + h - borderRadius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - borderRadius, y + h);
+    ctx.lineTo(x + borderRadius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - borderRadius);
+    ctx.lineTo(x, y + borderRadius);
+    ctx.quadraticCurveTo(x, y, x + borderRadius, y);
+    ctx.closePath();
+    ctx.fill();
+    
+    ctx.fillStyle = textCol;
+    ctx.font = `${fontsize}px ${font}`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(text, x + w / 2, y + h / 2);
+}
+export { areColliding, randomInteger, drawLine, drawImage, isFunction, createButton, drawText };

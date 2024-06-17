@@ -1,27 +1,28 @@
 import { engine } from "./engine.mjs";
 import * as THREE from "three";
 import * as CANNON from "cannon-es";
-import OrbitControls_ from 'three-orbit-controls';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { areColliding, randomInteger, drawLine, drawImage, isFunction, createButton } from './utils.mjs';
+import { firingTheBall } from "./firingTheBall.mjs";
+import { Menu, initMenu, menuConfig } from "./menu.mjs";
+import { initSoundEvents, playRandomSoundEffectFall } from "./Sounds.mjs";
+    // Visuals for the game
 import { Ramp } from "./BuildingBlocks/Ramp.mjs";
 import { BuildingBlock } from "./BuildingBlocks/BuildingBlock.mjs";
 import { MovingPlatform } from "./BuildingBlocks/MovingPlatform.mjs";
 import { Cylinder } from "./BuildingBlocks/Cylinder.mjs";
 import { GolfHole } from "./BuildingBlocks/GolfHole.mjs";
-//Visuals for the game
+import { GolfHole_Detection } from "./BuildingBlocks/GolfHole_DetectionPoint.mjs";
 import { Skybox, skybox_texture } from "./asset_loading/assets_3d.mjs";
-import { firingTheBall } from "./firingTheBall.mjs";
-import { initSoundEvents,playRandomSoundEffectFall } from "./Sounds.mjs"
-import { createBall, ballMesh, ballBody,deleteBall } from "./ball.mjs";
+import { createBall, ballMesh, ballBody, deleteBall} from "./ball.mjs";
 import { createNewEmitter, updateEmitters } from "./BuildingBlocks/Particle.mjs";
-import { Menu, initMenu, menuConfig } from "./menu.mjs";
-import { areColliding } from "./utils.mjs";
-// import { createHillsBufferGeometry } from "./Terrain/Hills.mjs";
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { forEach } from "lodash";
-import {flag} from "./BuildingBlock_no_collision/flag.mjs"
-import { addTreesToGround, createHillsBufferGeometry } from "./Terrain/Hills.mjs";
+import { addTreesToGround, createHillsBufferGeometry } from './Terrain/Hills.mjs';
 import { Ice } from "./BuildingBlocks/Iceblock.mjs";
+import {flag} from "./BuildingBlock_no_collision/flag.mjs"
+
 const orbitControls = true;
+let controls = null;
+
 
 function createGround() {
     // Create ground plane
@@ -40,12 +41,15 @@ function createGround() {
 }
 
 function initCamera() {
+    createButton("Play",275,175,250,100,"red",50,"white");
+
     // Init camera
     engine.camera.position.set(0, 20, 80);
     engine.camera.lookAt(0, 10, 0);
 
-    //change far frustum plane to account for skybox
+    // Change far frustum plane to account for skybox
     engine.camera.far = 10000;
+    engine.camera.updateProjectionMatrix();
 }
 
 function initLights() {
@@ -96,30 +100,39 @@ function initBallDirectionArrows() {
     }
 }
 let time = 0, obx = 0, oby = 0, obz = 0;
-let controls = null;
 function initGame() {
-    //initSoundEvents();
+    // initSoundEvents();
     if (menuConfig.showMenu) {
         initMenu(initLevel);
     } else {
         menuConfig.gameStarted = true;
         initSoundEvents();
         initLevel();
-        firingTheBall.initUI();
+
     }
+
     // Create ball and attach to window
     createBall(5, 30, 0);
 
     let groundMesh = createHillsBufferGeometry(10, 10, 100, 5, 20);
     // Init slider and buttons for firing the ball
     addTreesToGround(groundMesh, 100);
+
+    // Setup camera position
+    initCamera();
+
     // Init orbit controls
     if (orbitControls) {
         controls = new OrbitControls(engine.camera, engine.canvas2d);
         controls.target = ballMesh.position;
-        controls.minDistance= 9;
-        controls.maxDistance = 30;
-        controls.distance = 3;
+        controls.maxDistance = 150
+        controls.enableDamping = true
+        controls.dampingFactor = .1
+        if (menuConfig.gameStarted == false) {
+            controls.autoRotate = true
+            controls.autoRotateSpeed = 0.5
+
+        }
     }
 
     // Setup camera position
@@ -181,18 +194,22 @@ function initGame() {
 
 
 function make_the_ball_static_when_is_not_moving() {
-    if (time % 10 == 0) {
-        if (ballBody.velocity.length() < 0.5) {
-            //raycast to know if the ball is on the ground and should actually stop
-            let ray = new CANNON.Ray(new CANNON.Vec3(ballBody.position.x,ballBody.position.y-1.1,ballBody.position.z), new CANNON.Vec3(ballBody.position.x,ballBody.position.y-1.2,ballBody.position.z));
-            if(ray.intersectWorld(engine.cannonjs_world,{})){
-                ballBody.type = CANNON.Body.STATIC;
-                firingTheBall.isBallShot = false;
-            }
+    const velocityThreshold = 0;
+    const timeInterval = 10;
+
+    if (time % timeInterval === 0 && ballBody.velocity.length() < velocityThreshold) {
+        const groundRay = new CANNON.Ray(
+            new CANNON.Vec3(ballBody.position.x, ballBody.position.y - 1.1, ballBody.position.z),
+            new CANNON.Vec3(ballBody.position.x, ballBody.position.y - 1.2, ballBody.position.z)
+        );
+
+        const intersect = groundRay.intersectWorld(engine.cannonjs_world, {});
+
+        if (intersect) {
+            ballBody.type = CANNON.Body.STATIC;
+            firingTheBall.isBallShot = false;
         }
-        obx = Math.abs(ballMesh.position.x);
-        oby = Math.abs(ballMesh.position.y);
-        obz = Math.abs(ballMesh.position.z);
+
     }
 }
 
